@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emgounto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/22 21:59:03 by emgounto          #+#    #+#             */
-/*   Updated: 2018/02/28 22:24:22 by emgounto         ###   ########.fr       */
+/*   Created: 2018/02/22 13:10:45 by emgounto          #+#    #+#             */
+/*   Updated: 2018/02/26 21:12:33 by emgounto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,24 @@
 
 int		ft_atoi(const char *str)
 {
-	long long int nb;
-	long long int sign;
+	size_t	i;
+	size_t	k;
+	int		neg;
+	int		num;
 
-	nb = 0;
-	sign = 1;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign = sign * -1;
-		str++;
-	}
-	while (*str && ft_isdigit(*str))
-		nb = nb * 10 + (long long int)(*str++ - '0');
-	return (nb * sign);
+	neg = 1;
+	num = 0;
+	i = 0;
+	while (*(str + i) == '\n' || *(str + i) == '\t' ||
+		*(str + i) == '\r' || *(str + i) == '\v' ||
+		*(str + i) == '\f' || *(str + i) == ' ')
+		i++;
+	if (*(str + i) == '-')
+		neg = -1;
+	if (*(str + i) == '-' || *(str + i) == '+')
+		i++;
+	k = i;
+	while (*(str + i) && *(str + i) >= '0' && *(str + i) <= '9')
+		num = num * 10 + (*(str + i++) - '0');
+	return ((int)(num * neg));
 }
