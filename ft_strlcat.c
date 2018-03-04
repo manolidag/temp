@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juochen <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: emgounto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/21 19:13:50 by juochen           #+#    #+#             */
-/*   Updated: 2018/02/28 13:13:42 by juochen          ###   ########.fr       */
+/*   Created: 2018/02/21 13:58:22 by emgounto          #+#    #+#             */
+/*   Updated: 2018/02/21 14:28:20 by emgounto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strlcat(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	char		*dp;
-	const char	*sp;
-	size_t		lp;
-	size_t		length;
+	size_t i;
+	size_t res;
 
-	dp = dst;
-	sp = src;
-	lp = dstsize;
-	while (lp-- != 0 && *dp != '\0')
-		dp++;
-	length = dp - dst;
-	lp = dstsize - length;
-	if (lp == 0)
-		return (length + ft_strlen(sp));
-	while (*sp != '\0')
-	{
-		if (lp != 1)
-		{
-			*dp++ = *sp;
-			lp--;
-		}
-		sp++;
-	}
-	*dp = '\0';
-	return (length + (sp - src));
+	i = 0;
+	while (dstsize > i && dst[i])
+		i++;
+	if (dstsize == i)
+		return (dstsize + ft_strlen(src));
+	res = i + ft_strlen(src);
+	ft_strncat(dst, src, dstsize - i - 1);
+	return (res);
 }
